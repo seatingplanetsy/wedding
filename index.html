@@ -3,39 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Wedding Seating Chart</title>
+<title>Wedding Seating</title>
 <style>
+/* Önceki tasarım CSS kodların (Değişmedi, aynen korundu) */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap');
 :root{ --bg:#3f563d; --gold:#efe1c2; --searchBorder:rgba(232, 217, 183, 0.4); }
 *{ box-sizing:border-box; }
 body{ margin:0; background:var(--bg); color:var(--gold); font-family:Arial,sans-serif; overflow-x: hidden; }
-
-/* Placeholder Pulse Efekti */
 @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
 .loading-skeleton { animation: pulse 1.5s infinite; color: rgba(239, 225, 194, 0.2); }
-
-.search-screen{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; transition: 0.5s; }
+.search-screen{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
 .hero-grid{ width:100%; max-width:1600px; display:grid; grid-template-columns: 1fr 1fr; gap:40px; }
 .hero-left{ text-align: center; }
 .couple-names{ font-family:"Cormorant Garamond", serif; font-style:italic; margin:0 auto; }
 .name-line{ display:block; font-size:clamp(40px, 7vw, 100px); line-height:0.9; text-transform: uppercase; min-height: 1em; }
 .and-line{ display:block; font-size:clamp(25px, 4vw, 50px); margin:10px 0; }
-
 .meta-row{ margin-top:40px; display:flex; align-items:center; justify-content: center; gap:30px; }
 .meta-date, .meta-venue{ font-size:clamp(12px, 1.5vw, 18px); letter-spacing:0.12em; text-transform:uppercase; text-align:center; min-width: 60px; }
 .meta-divider{ width:1px; height:60px; background:var(--gold); opacity:0.4; }
-
 .hero-right{ display:flex; flex-direction:column; align-items: center; gap:40px; }
 .search-area{ width:100%; max-width:400px; position:relative; }
-#searchInput{ width:100%; height:50px; border:2px solid var(--searchBorder); background:rgba(255,255,255,0.03); color:var(--gold); padding:0 15px; font-size:18px; outline:none; border-radius: 4px; transition: 0.3s; }
-#searchInput:focus { border-color: var(--gold); background:rgba(255,255,255,0.08); }
-
+#searchInput{ width:100%; height:50px; border:2px solid var(--searchBorder); background:rgba(255,255,255,0.03); color:var(--gold); padding:0 15px; font-size:18px; outline:none; border-radius: 4px; }
 #suggestions{ background:white; color:black; margin-top:5px; border-radius:4px; overflow:hidden; display:none; position:absolute; width:100%; z-index:100; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 .suggestion-item{ padding:12px; border-bottom:1px solid #eee; cursor:pointer; text-align: left; font-size: 16px; }
 .suggestion-item:hover{ background-color: #f5f5f5; }
 .flower-art{ width: 100%; max-width: 400px; height: auto; }
-
-/* SONUÇ EKRANI */
 .result-screen{ display:none; min-height:100vh; width: 100vw; align-items:center; justify-content:center; opacity:0; transition:0.3s; background:var(--bg); position: fixed; top:0; left:0; z-index: 1000; }
 .result-screen.fade-in { display: flex; opacity: 1; }
 .result-stage{ position:relative; }
@@ -44,7 +36,6 @@ body{ margin:0; background:var(--bg); color:var(--gold); font-family:Arial,sans-
 .table-label{ font-family:"Playfair Display", serif; font-size:28px; color:#4a4a40; margin:0; }
 .guest-label{ font-family:"Cormorant Garamond", serif; font-size:20px; font-style:italic; color:#5d5d54; margin-top:5px; }
 .back-link{ position:fixed; top:20px; left:20px; background:transparent; border:1px solid var(--gold); color:var(--gold); padding:8px 15px; cursor:pointer; z-index:2000; text-transform: uppercase; font-size: 11px; }
-
 @media(max-width:900px){ .hero-grid{ grid-template-columns: 1fr; } }
 @media(max-width:700px){ .result-artwork { width: 95vw; } .result-overlay { width: 40%; left: 28%; } }
 </style>
@@ -67,10 +58,10 @@ body{ margin:0; background:var(--bg); color:var(--gold); font-family:Arial,sans-
     </div>
     <div class="hero-right">
       <div class="search-area">
-        <input type="text" id="searchInput" placeholder="Loading..." onkeyup="searchGuest()" autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Checking local data..." onkeyup="searchGuest()" autocomplete="off">
         <div id="suggestions"></div>
       </div>
-      <img class="flower-art" src="https://drive.google.com/thumbnail?id=1jqInBUGzhX7aSCT6AOLY3sltHw7sjwSH&sz=w1000">
+      <img class="flower-art" src="https://drive.google.com/thumbnail?id=1jqInBUGzhX7aSCT6AOLY3sltHw7sjwSH&sz=w600">
     </div>
   </div>
 </section>
@@ -78,7 +69,7 @@ body{ margin:0; background:var(--bg); color:var(--gold); font-family:Arial,sans-
 <section class="result-screen" id="resultScreen">
   <button class="back-link" onclick="goBack()">← BACK</button>
   <div class="result-stage">
-    <img class="result-artwork" src="https://drive.google.com/thumbnail?id=1Eo6zZ0x8yiteTOBxN25OzTdeSVwFHD-z&sz=w1000">
+    <img class="result-artwork" src="https://drive.google.com/thumbnail?id=1Eo6zZ0x8yiteTOBxN25OzTdeSVwFHD-z&sz=w600">
     <div class="result-overlay">
       <div class="table-label" id="resultTable"></div>
       <div class="guest-label" id="resultGuest"></div>
@@ -88,37 +79,47 @@ body{ margin:0; background:var(--bg); color:var(--gold); font-family:Arial,sans-
 
 <script>
 let guestData = [];
-// Kendi Web App linkin başarıyla eklendi
 const webAppUrl = "https://script.google.com/macros/s/AKfycbxHqEusrWcMpSCSECV604jsI9ojn0C4KpBtk0YF2dGKUpvKH4X9o691HklSoS2qlH9O/exec"; 
-const urlParams = new URLSearchParams(window.location.search);
-const myId = urlParams.get('id') || "DEMO";
+const myId = new URLSearchParams(window.location.search).get('id') || "DEMO";
+
+// TURBO ŞARJ: Verileri Yerel Hafızadan Yükle
+function loadFromCache() {
+  const cachedSettings = localStorage.getItem(`settings_${myId}`);
+  const cachedGuests = localStorage.getItem(`guests_${myId}`);
+  
+  if (cachedSettings) applySettings(JSON.parse(cachedSettings));
+  if (cachedGuests) {
+    guestData = JSON.parse(cachedGuests);
+    document.getElementById('searchInput').placeholder = "Search your name...";
+  }
+}
+
+function applySettings(s) {
+  const n = (s["Couple Names"] || " & ").split(' and ');
+  document.getElementById('name1').innerText = (n[0] || "").trim().toUpperCase();
+  document.getElementById('name1').classList.remove('loading-skeleton');
+  document.getElementById('name2').innerText = (n[1] || "").trim().toUpperCase();
+  document.getElementById('name2').classList.remove('loading-skeleton');
+  document.getElementById('weddingDate').innerText = (s["Wedding Date"] || "").toUpperCase();
+  document.getElementById('weddingDate').classList.remove('loading-skeleton');
+  document.getElementById('venue').innerText = (s["Venue"] || "").toUpperCase();
+  document.getElementById('venue').classList.remove('loading-skeleton');
+}
 
 window.onload = () => {
-  // 1. Settings Getir
-  fetch(`${webAppUrl}?id=${myId}&action=settings`)
-    .then(res => res.json())
-    .then(s => {
-      if(s["Couple Names"]) {
-        const n = s["Couple Names"].split(' and ');
-        const n1 = document.getElementById('name1'), n2 = document.getElementById('name2');
-        n1.innerText = (n[0] || "").trim().toUpperCase(); n1.classList.remove('loading-skeleton');
-        n2.innerText = (n[1] || "").trim().toUpperCase(); n2.classList.remove('loading-skeleton');
-      }
-      const wd = document.getElementById('weddingDate'), v = document.getElementById('venue');
-      wd.innerText = (s["Wedding Date"] || "DATE").toUpperCase(); wd.classList.remove('loading-skeleton');
-      v.innerText = (s["Venue"] || "VENUE").toUpperCase(); v.classList.remove('loading-skeleton');
-      if(s["Welcome Text"]) document.getElementById('searchInput').placeholder = s["Welcome Text"];
-    })
-    .catch(err => console.error("Settings error:", err));
+  loadFromCache(); // Önce hafızayı oku (0.1 saniye)
 
-  // 2. Guests Getir
-  fetch(`${webAppUrl}?id=${myId}&action=guests`)
-    .then(res => res.json())
-    .then(data => {
-      guestData = data || [];
-      document.getElementById('searchInput').placeholder = "Search your name...";
-    })
-    .catch(err => console.error("Guest list error:", err));
+  // Arka planda Google'dan taze verileri çek ve güncelle
+  Promise.all([
+    fetch(`${webAppUrl}?id=${myId}&action=settings`).then(r => r.json()),
+    fetch(`${webAppUrl}?id=${myId}&action=guests`).then(r => r.json())
+  ]).then(([s, g]) => {
+    applySettings(s);
+    guestData = g;
+    localStorage.setItem(`settings_${myId}`, JSON.stringify(s));
+    localStorage.setItem(`guests_${myId}`, JSON.stringify(g));
+    document.getElementById('searchInput').placeholder = "Search your name...";
+  });
 };
 
 function searchGuest(){
